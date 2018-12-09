@@ -1,22 +1,115 @@
 Install composer:
- - https://getcomposer.org/download/
+  - https://getcomposer.org/download/
 
- | php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
- | php -r "if (hash_file('sha384', 'composer-setup.php') === '93b54496392c062774670ac18b134c3b3a95e5a5e5c8f1a9f115f203b75bf9a129d5daa8ba6a13e2cc8a1da0806388a8') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
- | php composer-setup.php
- | php -r "unlink('composer-setup.php');"
-
+  | php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+  | php -r "if (hash_file('sha384', 'composer-setup.php') === '93b54496392c062774670ac18b134c3b3a95e5a5e5c8f1a9f115f203b75bf9a129d5daa8ba6a13e2cc8a1da0806388a8') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+  | php composer-setup.php
+  | php -r "unlink('composer-setup.php');"
 
 Create symfony 4 project:
 
- | composer create-project symfony/skeleton my-project
- | cd my-project
+  | composer create-project symfony/skeleton my-project
+  | cd my-project
 
-Bonus:
+GIT init:
 
- | git init
+  | sudo rm src/Controller/.gitignore
+  | git init
+  | gaa && gc -m 'init'
 
 Start server:
+  > http://127.0.0.1:8000
 
- |
+  Solution n°1:
+
+    | php -S 127.0.0.1:8000 -t public
+
+  Solution n°2:
+
+    | composer require server --dev
+
+    | bin/console server:run
+    | bin/console server:start
+    | bin/console server:status
+    | bin/console server:stop
+
+Create default controller:
+
+  | composer require profiler (Debug with profiler)
+
+  | composer require annotations         >> @Route
+  | composer require maker-bundle        >> bin/console make controller|entity|form|migration...
+  | bin/console make:controller Default
+
+    --------------------------------------------------------------------
+    ./my-project/src/Controller/DefaultController.php
+
+    <?php
+
+    namespace App\Controller;
+
+    use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+    use Symfony\Component\HttpFoundation\Response;
+    use Symfony\Component\Routing\Annotation\Route;
+
+    class DefaultController extends AbstractController
+    {
+        /**
+         * @Route("/", name="index")
+         */
+        public function index()
+        {
+            return new Response('Hello world !!!');
+        }
+    }
+
+    --------------------------------------------------------------------
+
+My first twig template:
+
+  | composer require twig
+
+    --------------------------------------------------------------------
+    ./my-project/templates/default/index.html.twig
+
+    {% extends 'base.html.twig' %}
+
+    {% block body %}
+        Hello world !!!
+    {% endblock %}
+
+    --------------------------------------------------------------------
+    ./my-project/src/Controller/DefaultController.php
+
+    <?php
+
+    namespace App\Controller;
+
+    use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+    use Symfony\Component\HttpFoundation\Response;
+    use Symfony\Component\Routing\Annotation\Route;
+    use Twig\Environment;
+
+    class DefaultController extends AbstractController
+    {
+        /**
+         * @Route("/", name="index")
+         *
+         * @param Environment $twig
+         * @return Response
+         * @throws \Twig_Error_Loader
+         * @throws \Twig_Error_Runtime
+         * @throws \Twig_Error_Syntax
+         */
+        public function index(
+            Environment $twig
+        )
+        {
+            return new Response($twig->render('default/index.html.twig'));
+        }
+    }
+
+GIT step 1:
+
+  | gaa && gc -m 'step 1: my first page controller and twig'
 
