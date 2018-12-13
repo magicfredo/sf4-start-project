@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User Management{% endblock %}
+
+{% block body %}
+
+    {#{{ form_start(form) }}#}
+    {#{{ form_widget(form) }}#}
+    {#<button>Submit</button>#}
+    {#{{ form_end(form) }}#}
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>firstName</th>
+            <th>name</th>
+            <th>email</th>
+            <th>addedDate</th>
+            <th>deletedDate</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if users %}
+        {% for user in users %}
+            <tr>
+                <td>{{ user.firstName }}</td>
+                <td>{{ user.name }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.addedDate|date("m/d/Y") }}</td>
+                <td>{{ user.deletedDate }}</td>
+            </tr>
+        {% endfor %}
+        {% endif %}
+        </tbody>
+    </table>
+
+{% endblock %}

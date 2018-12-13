@@ -115,11 +115,6 @@ GIT step 1:
 
   | gaa && gc -m 'step 1: my first twig controller'
 
-ORM: (@todo)
-
-  | composer require form validator orm
-  | bin/console make:form Post
-
 Frontend (encore: CSS & JS):
   https://symfony.com/doc/current/frontend/encore/simple-example.html
 
@@ -138,6 +133,7 @@ Frontend (encore: CSS & JS):
 
   | yarn encore dev
   | yarn encore dev --watch
+  | yarn encore dev-server   (!IMPORTANT: runs webpack-dev-server)
   | yarn encore production
 
   --------------------------------------------------------------------
@@ -170,7 +166,7 @@ Using Bootstrap CSS
   https://symfony.com/doc/current/frontend/encore/bootstrap.html
 
   | yarn add bootstrap --dev
-  | yarn add sass-loader@^7.0.1 node-sass --dev
+  | yarn add sass-loader node-sass --dev
 
   --------------------------------------------------------------------
   ./my-project/webpack.config.js (uncomment)
@@ -248,3 +244,33 @@ Using Bootstrap JS
 GIT step 3:
 
   | gaa && gc -m 'step 3: bootstrap installed'
+
+ORM:
+
+  | composer require form validator orm
+
+  .env
+    > DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name
+  ./my-project/config/packages/doctrine.yaml
+    > driver: 'pdo_mysql'
+
+  OR
+
+  .env
+    > DATABASE_URL=sqlite:///%kernel.project_dir%/var/data.db
+  ./my-project/config/packages/doctrine.yaml
+    > driver: 'pdo_sqlite'
+
+Security :
+  https://symfony.com/doc/current/security.html
+
+  | composer require symfony/security-bundle
+  | php bin/console make:user
+  | bin/console doctrine:migrations:diff
+  | bin/console doctrine:migrations:migrate
+
+@todo
+https://symfony.com/doc/master/doctrine/registration_form.html
+
+
+https://blackrockdigital.github.io/startbootstrap-sb-admin-2/pages/index.html

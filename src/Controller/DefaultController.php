@@ -10,7 +10,7 @@ use Twig\Environment;
 class DefaultController extends AbstractController
 {
     /**
-     * @Route("/", name="index")
+     * @Route("/", name="default_index")
      *
      * @param Environment $twig
      * @return Response
