@@ -46,12 +46,4 @@ class RegistrationController extends AbstractController
             ['form' => $form->createView()]
         );
     }
-
-    public function login(
-        Request $request,
-        UserPasswordEncoderInterface $passwordEncoder
-    )
-    {
-        
-    }
 }
