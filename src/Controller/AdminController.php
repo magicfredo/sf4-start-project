@@ -10,7 +10,7 @@ use Twig\Environment;
 class AdminController extends AbstractController
 {
     /**
-     * @Route("/admin", name="admin.index")
+     * @Route("/admin", name="admin_index")
      *
      * @param Environment $twig
      * @return Response

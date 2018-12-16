@@ -2,19 +2,20 @@
 
 namespace App\Controller;
 
-use App\Form\UserType;
 use App\Entity\User;
+use App\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use \Symfony\Component\HttpFoundation\RedirectResponse;
-use \Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
-class RegistrationController extends AbstractController
+class SecurityController extends AbstractController
 {
     /**
-     * @Route("/register", name="registration_register")
+     * @Route("/register", name="app_register")
      *
      * @param Request $request
      * @param UserPasswordEncoderInterface $passwordEncoder
@@ -42,8 +43,27 @@ class RegistrationController extends AbstractController
         }
 
         return $this->render(
-            'registration/register.html.twig',
+            'security/register.html.twig',
             ['form' => $form->createView()]
         );
+    }
+
+    /**
+     * @Route("/login", name="security_login")
+     *
+     * @param AuthenticationUtils $authenticationUtils
+     * @return Response
+     */
+    public function login(AuthenticationUtils $authenticationUtils): Response
+    {
+        // get the login error if there is one
+        $error = $authenticationUtils->getLastAuthenticationError();
+        // last username entered by the user
+        $lastUsername = $authenticationUtils->getLastUsername();
+
+        return $this->render('security/login.html.twig', [
+            'last_username' => $lastUsername,
+            'error' => $error
+        ]);
     }
 }

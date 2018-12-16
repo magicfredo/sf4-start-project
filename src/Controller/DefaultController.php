@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,5 +24,18 @@ class DefaultController extends AbstractController
     )
     {
         return new Response($twig->render('default/index.html.twig'));
+    }
+
+    /**
+     * @Route("/show/{id}", name="show")
+     *
+     * @param User $user
+     * @return Response
+     */
+    public function show(User $user)
+    {
+        return $this->render('default/show.html.twig', [
+            'user' => $user,
+        ]);
     }
 }
