@@ -15,7 +15,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class SecurityController extends AbstractController
 {
     /**
-     * @Route("/register", name="app_register")
+     * @Route("/register", name="security_register")
      *
      * @param Request $request
      * @param UserPasswordEncoderInterface $passwordEncoder
@@ -42,10 +42,9 @@ class SecurityController extends AbstractController
             return $this->redirectToRoute('default_index');
         }
 
-        return $this->render(
-            'security/register.html.twig',
-            ['form' => $form->createView()]
-        );
+        return $this->render('security/register.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 
     /**
@@ -56,14 +55,22 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
-        // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render('security/login.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error
         ]);
+    }
+
+    /**
+     * @Route("/logout", name="security_logout")
+     *
+     * @throws \Exception
+     */
+    public function logout(): void
+    {
+        throw new \Exception('This should never be reached!');
     }
 }

@@ -27,9 +27,9 @@ class UserType extends AbstractType
                 'label' => 'Email',
                 'error_bubbling'=> false,
             ])
-            ->add('username', TextType::class, [
-                'label' => 'Username',
-            ])
+//            ->add('username', TextType::class, [
+//                'label' => 'Username',
+//            ])
             ->add('plainPassword', RepeatedType::class,[
                 'type' => PasswordType::class,
                 'first_options'  => ['label' => 'Password'],

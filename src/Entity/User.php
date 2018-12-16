@@ -15,6 +15,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class User implements UserInterface
 {
     const ROLE_ADMIN = 'ROLE_ADMIN';
+    const ROLE_SUPER_ADMIN = 'SUPER_ADMIN';
     const ROLE_USER = 'ROLE_USER';
 
     /**
@@ -36,8 +37,9 @@ class User implements UserInterface
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=true)
-     * @Assert\NotBlank()
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * #ORM\Column(type="string", length=255, unique=true)
+     * #Assert\NotBlank()
      *
      * @var string
      */
@@ -52,10 +54,7 @@ class User implements UserInterface
     private $plainPassword;
 
     /**
-     * The below length depends on the "algorithm" you use for encoding
-     * the password, but this works well with bcrypt.
-     *
-     * @ORM\Column(type="string", length=64)
+     * @ORM\Column(type="string", length=95)
      *
      * @var string
      */
@@ -118,19 +117,20 @@ class User implements UserInterface
      */
     public function getUsername(): ?string
     {
-        return $this->username;
+        return $this->email;
+//         return $this->username;
     }
 
-    /**
-     * @param string|null $username
-     * @return User
-     */
-    public function setUsername(?string $username): User
-    {
-        $this->username = $username;
-
-        return $this;
-    }
+//    /**
+//     * @param string|null $username
+//     * @return User
+//     */
+//    public function setUsername(?string $username): User
+//    {
+//        $this->username = $username;
+//
+//        retuform->handleRequest($request);rn $this;
+//    }
 
     /**
      * @return string|null
