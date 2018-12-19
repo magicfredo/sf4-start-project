@@ -25,7 +25,6 @@ class UserType extends AbstractType
         $builder
             ->add('email', EmailType::class, [
                 'label' => 'Email',
-                'error_bubbling'=> false,
             ])
 //            ->add('username', TextType::class, [
 //                'label' => 'Username',

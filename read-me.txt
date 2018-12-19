@@ -37,6 +37,11 @@ Create default controller:
 
   | composer require profiler (Debug with profiler)
 
+  Dump in profiler :
+
+  | composer require symfony/var-dumper --dev
+  | composer require symfony/debug-bundle
+
   | composer require annotations         >> @Route
   | composer require maker-bundle        >> bin/console make controller|entity|form|migration...
   | bin/console make:controller Default
@@ -88,24 +93,17 @@ Twig template:
     use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
     use Symfony\Component\HttpFoundation\Response;
     use Symfony\Component\Routing\Annotation\Route;
-    use Twig\Environment;
 
     class DefaultController extends AbstractController
     {
         /**
-         * @Route("/", name="index")
+         * @Route("/", name="default_index")
          *
-         * @param Environment $twig
          * @return Response
-         * @throws \Twig_Error_Loader
-         * @throws \Twig_Error_Runtime
-         * @throws \Twig_Error_Syntax
          */
-        public function index(
-            Environment $twig
-        )
+        public function index()
         {
-            return new Response($twig->render('default/index.html.twig'));
+            return $this->render('default/index.html.twig');
         }
     }
 
@@ -269,8 +267,13 @@ Security :
   | bin/console doctrine:migrations:diff
   | bin/console doctrine:migrations:migrate
 
+
+
 @todo
 https://symfony.com/doc/master/doctrine/registration_form.html
 
 
+https://www.supinfo.com/articles/single/7190-gestion-utilisateurs-sans-fosuserbundle-symfony-4
 https://blackrockdigital.github.io/startbootstrap-sb-admin-2/pages/index.html
+
+PAGE PROFILE ??

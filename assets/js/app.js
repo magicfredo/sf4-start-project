@@ -13,6 +13,9 @@ const $ = require('jquery');
 // the bootstrap module doesn't export/return anything
 require('bootstrap');
 
+// https://fontawesome.com/how-to-use/on-the-web/setup/using-package-managers
+// require('@fortawesome/fontawesome-free');
+
 // or you can include specific pieces
 // require('bootstrap/js/dist/tooltip');
 // require('bootstrap/js/dist/popover');

@@ -53,12 +53,20 @@ class SecurityController extends AbstractController
      * @param AuthenticationUtils $authenticationUtils
      * @return Response
      */
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    public function login(
+        AuthenticationUtils $authenticationUtils
+    ): Response
     {
+        if ($this->getUser() !== null) {
+            return $this->redirectToRoute('default_index');
+        }
+
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('security/login.html.twig', [
+        return $this->render(
+            'security/login.html.twig',
+        [
             'last_username' => $lastUsername,
             'error' => $error
         ]);

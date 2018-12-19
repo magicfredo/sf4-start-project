@@ -1,42 +1,64 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Login{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('login') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('login') }}
+{% endblock %}
 
 {% block body %}
-    <form method="post">
 
-        <a href="{{ path('security_logout') }}">Logout</a>
+    <div class="modal-dialog text-center">
+        <div class="col-sm-8 main-section">
+            <div class="modal-content">
 
-        {% if error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
+                <div class="col-12 user-img">
+                    <img src="{{ asset('build/images/hand-screaming-rock.png') }}" />
+                </div>
 
-        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+                <form method="post" class="col-12">
 
-        <label for="inputEmail" class="sr-only">Email</label>
-        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
+                    {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
 
-        {#<label for="inputUsername" class="sr-only">Username</label>#}
-        {#<input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" placeholder="Username" required autofocus>#}
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputEmail"><i class="fas fa-at"></i></label>
+                        </div>
+                        <input type="text" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus />
+                    </div>
 
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputPassword"><i class="fas fa-key"></i></label>
+                        </div>
+                        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required />
+                    </div>
 
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" />
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" />
 
-        {#
-            Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-            See https://symfony.com/doc/current/security/remember_me.html
+                    <button type="submit" class="btn">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </button>
 
-            <div class="checkbox mb-3">
-                <label>
-                    <input type="checkbox" name="_remember_me"> Remember me
-                </label>
-            </div>
-        #}
+                </form>
 
-        <button class="btn btn-lg btn-primary" type="submit">
-            Sign in
-        </button>
-    </form>
+                <div class="col-12 forgot">
+                    <a href="#">Forgot Password?</a>
+                </div>
+                <div class="col-12 not-registered">
+                    Not registered ? <a href="{{ path('security_register') }}">Create an account</a>
+                </div>
+
+            </div> <!--- End of Modal Content -->
+        </div>
+    </div>
+
 {% endblock %}

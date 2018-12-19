@@ -8,6 +8,13 @@ Encore
     // only needed for CDN's or sub-directory deploy
     //.setManifestKeyPrefix('build/')
 
+    // https://symfony.com/doc/current/frontend/encore/copy-files.html
+    .copyFiles({
+        from: './assets/images',
+        to: 'images/[path][name].[ext]',
+        pattern: /\.(png|jpg|fontawesomejpeg)$/
+    })
+
     /*
      * ENTRY CONFIG
      *
@@ -18,8 +25,7 @@ Encore
      * and one CSS file (e.g. app.css) if you JavaScript imports CSS.
      */
     .addEntry('app', './assets/js/app.js')
-    //.addEntry('page1', './assets/js/page1.js')
-    //.addEntry('page2', './assets/js/page2.js')
+    .addEntry('login', './assets/js/security/login.js')
 
     // will require an extra script tag for runtime.js
     // but, you probably want this, unless you're building a single-page app
