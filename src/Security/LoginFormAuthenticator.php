@@ -23,8 +23,8 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 {
     use TargetPathTrait;
 
-    const ROUTE_NAME = 'security_login';
-    const ROUTE_NAME_SUCCESS = 'default_index';
+    public const ROUTE_NAME = 'security_login';
+    public const ROUTE_NAME_SUCCESS = 'default_index';
 
     /**
      * @var EntityManagerInterface
@@ -69,7 +69,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
      * @param Request $request
      * @return bool
      */
-    public function supports(Request $request)
+    public function supports(Request $request): bool
     {
         return self::ROUTE_NAME === $request->attributes->get('_route')
             && $request->isMethod('POST');
@@ -79,7 +79,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
      * @param Request $request
      * @return array
      */
-    public function getCredentials(Request $request)
+    public function getCredentials(Request $request): array
     {
         $credentials = [
 //            'username' => $request->request->get('username'),
@@ -100,12 +100,13 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
      * @param array $credentials
      * @param UserProviderInterface $userProvider
      * @return object|UserInterface|null
+     * @throw Exception
      */
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
         $token = new CsrfToken('authenticate', $credentials['csrf_token']);
         if (!$this->csrfTokenManager->isTokenValid($token)) {
-            throw new InvalidCsrfTokenException();
+            throw new InvalidCsrfTokenException('Invalid CSRF token.');
         }
 
         $user = $this->entityManager
@@ -127,7 +128,10 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
      * @param UserInterface $user
      * @return bool
      */
-    public function checkCredentials($credentials, UserInterface $user)
+    public function checkCredentials(
+        $credentials,
+        UserInterface $user
+    ): bool
     {
         return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
     }
@@ -138,7 +142,11 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
      * @param string $providerKey
      * @return RedirectResponse
      */
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
+    public function onAuthenticationSuccess(
+        Request $request,
+        TokenInterface $token,
+        $providerKey
+    ): RedirectResponse
     {
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);
@@ -150,7 +158,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     /**
      * @return string
      */
-    protected function getLoginUrl()
+    protected function getLoginUrl(): string
     {
         return $this->router->generate(self::ROUTE_NAME);
     }

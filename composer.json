@@ -6,20 +6,20 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "sensio/framework-extra-bundle": "^5.2",
-        "symfony/console": "4.2.*",
-        "symfony/debug-bundle": "4.2.*",
-        "symfony/dotenv": "4.2.*",
+        "symfony/console": "4.3.*",
+        "symfony/debug-bundle": "4.3.*",
+        "symfony/dotenv": "4.3.*",
         "symfony/flex": "^1.1",
-        "symfony/form": "4.2.*",
-        "symfony/framework-bundle": "4.2.*",
+        "symfony/form": "4.3.*",
+        "symfony/framework-bundle": "4.3.*",
         "symfony/maker-bundle": "^1.9",
         "symfony/orm-pack": "^1.0",
         "symfony/profiler-pack": "^1.0",
-        "symfony/security-bundle": "4.2.*",
-        "symfony/twig-bundle": "4.2.*",
-        "symfony/validator": "4.2.*",
+        "symfony/security-bundle": "4.3.*",
+        "symfony/twig-bundle": "4.3.*",
+        "symfony/validator": "4.3.*",
         "symfony/webpack-encore-bundle": "^1.0",
-        "symfony/yaml": "4.2.*"
+        "symfony/yaml": "4.3.*"
     },
     "config": {
         "preferred-install": {
@@ -63,10 +63,11 @@
     "extra": {
         "symfony": {
             "allow-contrib": false,
-            "require": "4.2.*"
+            "require": "4.3.*"
         }
     },
     "require-dev": {
-        "symfony/web-server-bundle": "4.2.*"
+        "roave/security-advisories": "dev-master",
+        "symfony/web-server-bundle": "4.3.*"
     }
 }
