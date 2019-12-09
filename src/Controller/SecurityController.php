@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -75,10 +76,10 @@ class SecurityController extends AbstractController
     /**
      * @Route("/logout", name="security_logout")
      *
-     * @throws \Exception
+     * @throws RuntimeException
      */
     public function logout(): void
     {
-        throw new \Exception('This should never be reached!');
+        throw new RuntimeException('This should never be reached!');
     }
 }
